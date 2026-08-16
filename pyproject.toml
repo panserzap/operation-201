@@ -1,7 +1,7 @@
 [project]
-name = "Trooper"
+name = "operation-201"
 version = "0.1.0"
-description = "Just a fun"
+description = "A FastAPI backend for part traceability and visual defect inspection."
 requires-python = ">=3.12"
 license = { text = "MIT" }
 authors = [

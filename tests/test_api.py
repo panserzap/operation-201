@@ -177,11 +177,11 @@ def test_quality_summary(client):
     assert summary["defect_rate"] == pytest.approx(0.5)
     assert summary["severity_breakdown"]["high"] == 1
 
-def test_root_points_to_docs(client):
-    response = client.get("/")
+    def test_root_points_to_docs(client):
+        response = client.get("/")
 
-    assert response.status_code == status.HTTP_200_OK
-    assert response.json()["hint"] == "Backend engineers usually check /docs."
+        assert response.status_code == status.HTTP_200_OK
+        assert response.json()["demo"] == "/docs"
 
 
 def test_candidate(client):
