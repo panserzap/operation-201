@@ -1,0 +1,25 @@
+[project]
+name = "Trooper"
+version = "0.1.0"
+description = "Just a fun"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [
+    {name = "Panos Zap"}
+]
+dependencies = [
+    "fastapi>=0.140",
+    "uvicorn[standard]>=0.30",
+]
+
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8",
+    "httpx2",
+    "ruff",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
