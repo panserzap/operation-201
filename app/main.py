@@ -80,18 +80,11 @@ def create_app() -> FastAPI:
                 detail="Part not found",
             )
 
-        return [
-            inspection
-            for inspection in inspections
-            if inspection.part_uid == part_uid
-        ]
+        return [inspection for inspection in inspections if inspection.part_uid == part_uid]
 
     @app.get("/quality/summary")
     def quality_summary() -> QualitySummary:
-        inspected_part_uids = {
-            inspection.part_uid
-            for inspection in inspections
-        }
+        inspected_part_uids = {inspection.part_uid for inspection in inspections}
 
         defects = [
             inspection
@@ -99,10 +92,7 @@ def create_app() -> FastAPI:
             if inspection.result == InspectionResult.DEFECT_DETECTED
         ]
 
-        severity_breakdown = {
-            severity.value: 0
-            for severity in DefectSeverity
-        }
+        severity_breakdown = {severity.value: 0 for severity in DefectSeverity}
 
         for inspection in defects:
             if inspection.severity is not None:
@@ -111,11 +101,7 @@ def create_app() -> FastAPI:
         parts_inspected = len(inspected_part_uids)
         defects_detected = len(defects)
 
-        defect_rate = (
-            defects_detected / len(inspections)
-            if inspections
-            else 0.0
-        )
+        defect_rate = defects_detected / len(inspections) if inspections else 0.0
 
         return QualitySummary(
             parts_registered=len(parts),
@@ -126,13 +112,12 @@ def create_app() -> FastAPI:
             severity_breakdown=severity_breakdown,
         )
 
-
     @app.get("/")
     def root() -> dict:
         return {
             "message": "Backend Engineer application, but with fewer PDFs.",
             "demo": "/docs",
-            "health": "/health"
+            "health": "/health",
         }
 
     @app.get("/candidate")

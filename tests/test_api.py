@@ -87,9 +87,12 @@ def test_defect_inspection_can_be_created(client):
     part = create_part(client)
 
     response = create_inspection(
-        client, part["part_uid"],
-        result="defect_detected", confidence=0.94,
-        severity="high", defect_type="surface_crack",
+        client,
+        part["part_uid"],
+        result="defect_detected",
+        confidence=0.94,
+        severity="high",
+        defect_type="surface_crack",
     )
     inspection = response.json()
 
@@ -103,8 +106,10 @@ def test_invalid_inspection_returns_422(client):
     part = create_part(client)
 
     response = create_inspection(
-        client, part["part_uid"],
-        result="defect_detected", confidence=0.94,
+        client,
+        part["part_uid"],
+        result="defect_detected",
+        confidence=0.94,
     )
 
     assert response.status_code == status.HTTP_422_UNPROCESSABLE_CONTENT
@@ -121,8 +126,11 @@ def test_inspections_are_filtered_by_part(client):
     part_two = create_part(client, part_number="M12-BOLT-50")
 
     create_inspection(
-        client, part_one["part_uid"],
-        result="defect_detected", confidence=0.95, severity="high",
+        client,
+        part_one["part_uid"],
+        result="defect_detected",
+        confidence=0.95,
+        severity="high",
     )
     create_inspection(client, part_two["part_uid"])
 
@@ -161,9 +169,12 @@ def test_quality_summary(client):
 
     create_inspection(client, clean_part["part_uid"])
     create_inspection(
-        client, defective_part["part_uid"],
-        result="defect_detected", confidence=0.95,
-        severity="high", defect_type="surface_crack",
+        client,
+        defective_part["part_uid"],
+        result="defect_detected",
+        confidence=0.95,
+        severity="high",
+        defect_type="surface_crack",
     )
 
     response = client.get("/quality/summary")
